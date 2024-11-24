@@ -74,27 +74,13 @@ app.post("/login", async (req, res) => {
 
 //fetch all teachers
 app.get("/teachers", async (req, res) => {
-  const token = req.header("authorization");
-
-  //this first checks if theres a jwt or not
-  if (!token) {
-    //403 forbidden because of no precense of token
-    return res.status(403).json({ message: "No Token Provided" });
+  try {
+    const teachers = await User.find({ role: "teacher" });
+    res.status(200).json(teachers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
-
-  //this verifies the token
-  jwt.verify(token, process.env.JWT_SECRET, async (err) => {
-    if (err) {
-      return res.status(401).json({ message: "Faild to authenticate" });
-    }
-    try {
-      const teachers = await User.find({ role: "teacher" });
-      res.status(200).json(teachers);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Server Error" });
-    }
-  });
 });
 
 // [QUIZ MANAGEMENT API] ========================================
