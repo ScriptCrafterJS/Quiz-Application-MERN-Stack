@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { getTeachers, registerUser } from "../services/apiRegister";
 import Welcome from "../ui/Welcome";
 import backgroundImage from "../../assets/background.png";
+import { useNavigate } from "react-router-dom";
 export default function Registration() {
   const [isStudent, setIsStudent] = useState(false);
   const [teacher, setTeacher] = useState("");
@@ -26,10 +27,12 @@ export default function Registration() {
   });
 
   const { register, handleSubmit, resetField } = useForm();
+  const navigate = useNavigate();
 
   //whenever the form is submitted, react hook form will call this function
   function onSubmit(data) {
     registerUser(data);
+    navigate("/");
   }
 
   return (
@@ -44,6 +47,7 @@ export default function Registration() {
         className="flex flex-col w-1/3 h-5/6 bg-white pt-5 px-10 relative shadow-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <h1 className="text-2xl font-bold text-center">Register</h1>
         <Label htmlFor="name">
           Name:
           <br />

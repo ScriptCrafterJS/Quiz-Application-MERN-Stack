@@ -21,7 +21,28 @@ export async function registerUser(data) {
       const errorData = await response.json();
       throw new Error(errorData.message);
     }
-    toast.success("User registered successfully!");
+    toast.success(response.message);
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    toast.error(error.message);
+  }
+}
+
+export async function loginUser(data) {
+  try {
+    const response = await fetch("http://localhost:4000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
+    toast.success(response.message);
     return response.json();
   } catch (error) {
     console.error(error);

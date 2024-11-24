@@ -1,16 +1,18 @@
-// import { useState } from "react";
 import Input from "../ui/Input";
 import Label from "../ui/Label";
-// import { useQuery } from "@tanstack/react-query";
+import { loginUser } from "../services/apiRegister";
 import { useForm } from "react-hook-form";
 import Welcome from "../ui/Welcome";
 import backgroundImage from "../../assets/background.png";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   //whenever the form is submitted, react hook form will call this function
-  function onSubmit() {
-    // loginUser(data);
+  function onSubmit(data) {
+    loginUser(data);
+    navigate("/quiz");
   }
 
   return (
@@ -25,6 +27,7 @@ export default function Login() {
         className="flex flex-col w-1/3 h-5/6 bg-white pt-5 px-10 relative shadow-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
         <Label htmlFor="email">
           Email:
           <br />
