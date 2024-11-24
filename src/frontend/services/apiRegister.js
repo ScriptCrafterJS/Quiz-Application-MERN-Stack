@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 export async function getTeachers() {
   try {
     const response = await fetch("http://localhost:4000/teachers");
@@ -16,8 +17,14 @@ export async function registerUser(data) {
       },
       body: JSON.stringify(data),
     });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    }
+    toast.success("User registered successfully!");
     return response.json();
   } catch (error) {
     console.error(error);
+    toast.error(error.message);
   }
 }

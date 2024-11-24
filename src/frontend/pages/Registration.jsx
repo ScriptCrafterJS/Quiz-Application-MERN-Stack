@@ -4,6 +4,8 @@ import Label from "../ui/Label";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { getTeachers, registerUser } from "../services/apiRegister";
+import Welcome from "../ui/Welcome";
+import backgroundImage from "../../assets/background.png";
 export default function Registration() {
   const [isStudent, setIsStudent] = useState(false);
   const [teacher, setTeacher] = useState("");
@@ -31,9 +33,15 @@ export default function Registration() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-500">
+    <div
+      className="flex items-center justify-center h-screen bg-blue-500"
+      style={{
+        backgroundImage: `url("${backgroundImage}")`,
+      }}
+    >
+      <Welcome registered={false} />
       <form
-        className="flex flex-col w-1/3 h-5/6 bg-white pt-5 px-10 rounded-xl relative shadow-sm"
+        className="flex flex-col w-1/3 h-5/6 bg-white pt-5 px-10 relative shadow-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Label htmlFor="name">
