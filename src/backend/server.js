@@ -135,5 +135,7 @@ app.delete("/questions/:id", authenticateToken, async (req, res) => {
   }
 });
 
+//submitting answers and getting score
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
